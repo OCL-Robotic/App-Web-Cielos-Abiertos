@@ -3,7 +3,7 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { LessonPlan, FormInputs } from "../types";
 
 export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+  const ai = new GoogleGenAI({ apiKey: process.env.VITE_API_KEY || '' });
 
   // Dynamically build the context string from all inputs
   const inputContext = Object.entries(inputs)
