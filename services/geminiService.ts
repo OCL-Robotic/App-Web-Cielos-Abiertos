@@ -2,21 +2,42 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { LessonPlan, FormInputs } from "../types";
 
-export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// Función segura para obtener la API Key sin romper el script si 'process' no existe
+const getApiKey = (): string => {
+  try {
+    return typeof process !== 'undefined' && process.env && process.env.API_KEY 
+      ? process.env.API_KEY 
+      : '';
+  } catch (e) {
+    return '';
+  }
+};
 
-  // Dynamically build the context string from all inputs
+export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan> => {
+  const apiKey = getApiKey();
+  
+  if (!apiKey) {
+    throw new Error("La API Key no está configurada en el servidor/entorno.");
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
+
+  // Construir dinámicamente el contexto basado en los campos personalizados
   const inputContext = Object.entries(inputs)
+    .filter(([_, value]) => value && value.trim() !== "")
     .map(([key, value]) => `${key}: "${value}"`)
     .join("\n    ");
 
   const response = await ai.models.generateContent({
     model: "gemini-3-flash-preview",
-    contents: `Genera un plan de clase completo para una escuela dominical cristiana con los siguientes parámetros:
+    contents: `Genera un plan de clase completo para una escuela dominical cristiana con los siguientes parámetros detallados:
     ${inputContext}
     
-    El plan DEBE seguir la estructura ABCD (Audiencia, Comportamiento, Condición y Grado).
-    Sé pedagógico, creativo y fiel a las escrituras. El tema principal es "${inputs.topic || inputs.Tema || 'Sin tema'}".`,
+    INSTRUCCIONES CRÍTICAS:
+    1. El plan DEBE seguir estrictamente la estructura ABCD (Audiencia, Comportamiento, Condición y Grado).
+    2. El contenido debe ser pedagógico, creativo y fiel a las doctrinas cristianas.
+    3. El tema principal es "${inputs.topic || inputs.Tema || 'Lección Bíblica'}".
+    4. El lenguaje debe ser apropiado para la edad especificada.`,
     config: {
       responseMimeType: "application/json",
       responseSchema: {
@@ -28,10 +49,10 @@ export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan
           abcd: {
             type: Type.OBJECT,
             properties: {
-              audience: { type: Type.STRING, description: "Quiénes son los estudiantes" },
-              behavior: { type: Type.STRING, description: "Qué acción realizarán" },
-              condition: { type: Type.STRING, description: "Bajo qué circunstancias" },
-              degree: { type: Type.STRING, description: "Nivel de dominio esperado" }
+              audience: { type: Type.STRING },
+              behavior: { type: Type.STRING },
+              condition: { type: Type.STRING },
+              degree: { type: Type.STRING }
             },
             required: ["audience", "behavior", "condition", "degree"]
           },
@@ -40,7 +61,7 @@ export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan
             type: Type.ARRAY,
             items: { type: Type.STRING }
           },
-          biblicalContext: { type: Type.STRING, description: "Explicación breve del contexto bíblico" },
+          biblicalContext: { type: Type.STRING },
           activities: {
             type: Type.ARRAY,
             items: {
@@ -73,12 +94,14 @@ export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan
     }
   });
 
-  const rawJson = response.text;
-  const parsed = JSON.parse(rawJson);
+  const text = response.text;
+  if (!text) throw new Error("La IA no devolvió una respuesta válida.");
+  
+  const parsed = JSON.parse(text);
   
   return {
     ...parsed,
     id: crypto.randomUUID(),
-    date: new Date().toLocaleDateString()
+    date: new Date().toLocaleDateString('es-PA')
   };
 };

@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { LessonPlan, FormInputs, FieldConfig } from './types';
 import { generateLessonPlan } from './services/geminiService';
 
-// Icons
+// Iconos
 const BookIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v12"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M12 6v12"/></svg>
 );
 const PlusIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
@@ -14,10 +14,10 @@ const PrintIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
 );
 const SettingsIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2 2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
 );
 const TrashIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/></svg>
 );
 
 const DEFAULT_FIELDS: FieldConfig[] = [
@@ -32,21 +32,24 @@ export default function App() {
   const [currentPlan, setCurrentPlan] = useState<LessonPlan | null>(null);
   const [loading, setLoading] = useState(false);
   const [showConfig, setShowConfig] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   
-  // Custom fields logic
   const [fields, setFields] = useState<FieldConfig[]>(DEFAULT_FIELDS);
   const [newFieldLabel, setNewFieldLabel] = useState('');
-  
-  const [form, setForm] = useState<FormInputs>(() => {
-    return DEFAULT_FIELDS.reduce((acc, f) => ({ ...acc, [f.id]: f.options?.[0] || '' }), {});
-  });
+  const [form, setForm] = useState<FormInputs>(() => 
+    DEFAULT_FIELDS.reduce((acc, f) => ({ ...acc, [f.id]: f.options?.[0] || '' }), {})
+  );
 
   useEffect(() => {
-    const savedPlans = localStorage.getItem('sunday-school-plans');
-    if (savedPlans) setPlans(JSON.parse(savedPlans));
-    
-    const savedFields = localStorage.getItem('sunday-school-fields');
-    if (savedFields) setFields(JSON.parse(savedFields));
+    try {
+      const savedPlans = localStorage.getItem('sunday-school-plans');
+      if (savedPlans) setPlans(JSON.parse(savedPlans));
+      
+      const savedFields = localStorage.getItem('sunday-school-fields');
+      if (savedFields) setFields(JSON.parse(savedFields));
+    } catch (e) {
+      console.warn("No se pudieron cargar los datos de localStorage");
+    }
   }, []);
 
   useEffect(() => {
@@ -54,8 +57,8 @@ export default function App() {
   }, [fields]);
 
   const handleAddField = () => {
-    if (!newFieldLabel) return;
-    const id = newFieldLabel.toLowerCase().replace(/\s+/g, '_');
+    if (!newFieldLabel.trim()) return;
+    const id = newFieldLabel.toLowerCase().trim().replace(/\s+/g, '_');
     if (fields.some(f => f.id === id)) return;
     
     const newField: FieldConfig = { id, label: newFieldLabel, placeholder: `Ingrese ${newFieldLabel.toLowerCase()}`, type: 'text' };
@@ -75,15 +78,16 @@ export default function App() {
   const handleGenerate = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     try {
       const newPlan = await generateLessonPlan(form);
       const updatedPlans = [newPlan, ...plans];
       setPlans(updatedPlans);
       setCurrentPlan(newPlan);
       localStorage.setItem('sunday-school-plans', JSON.stringify(updatedPlans));
-    } catch (error) {
-      console.error(error);
-      alert("Error al generar el plan. Por favor revisa tu conexión o API Key.");
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Ocurrió un error inesperado al generar el plan.");
     } finally {
       setLoading(false);
     }
@@ -92,50 +96,43 @@ export default function App() {
   const handlePrint = () => window.print();
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <div className="min-h-screen flex flex-col md:flex-row bg-slate-50">
       {/* Sidebar */}
-      <aside className="no-print w-full md:w-85 bg-white border-r border-slate-200 p-6 overflow-y-auto max-h-screen">
+      <aside className="no-print w-full md:w-80 bg-white border-r border-slate-200 p-6 overflow-y-auto max-h-screen shadow-sm z-10">
         <div className="mb-8 group">
           <div className="flex items-center gap-3 mb-2">
             <div className="p-2 bg-indigo-600 text-white rounded-lg flex-shrink-0 shadow-sm transition-transform group-hover:scale-105">
               <BookIcon />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-lg font-bold text-slate-800 leading-none">
-                CIELOS ABIERTO
-              </h1>
-              <span className="text-xs font-semibold text-indigo-600 tracking-wider">
-                AGUADULCE
-              </span>
+              <h1 className="text-lg font-bold text-slate-800 leading-none tracking-tight">CIELOS ABIERTOS</h1>
+              <span className="text-[10px] font-bold text-indigo-600 tracking-widest uppercase mt-0.5">Aguadulce, Coclé</span>
             </div>
           </div>
-          <p className="text-[11px] text-slate-400 font-medium italic pl-11">
-            "Edificando sobre la roca"
-          </p>
+          <p className="text-[11px] text-slate-400 font-medium italic pl-11">"Edificando sobre la roca"</p>
         </div>
 
         <nav className="space-y-6">
           <section>
-            <div className="flex items-center justify-between mb-3">
-              <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Nuevo Plan</h2>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest">Configurar Lección</h2>
               <button 
                 onClick={() => setShowConfig(!showConfig)}
-                className={`p-1 rounded-md transition ${showConfig ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 hover:bg-slate-50'}`}
-                title="Personalizar campos"
+                className={`p-1.5 rounded-md transition ${showConfig ? 'bg-indigo-100 text-indigo-600' : 'text-slate-400 hover:bg-slate-100'}`}
               >
                 <SettingsIcon />
               </button>
             </div>
 
             {showConfig && (
-              <div className="mb-6 p-3 bg-slate-50 rounded-lg border border-slate-200 animate-in fade-in slide-in-from-top-2 duration-200">
-                <h3 className="text-[10px] font-bold text-slate-500 uppercase mb-2">Gestionar Campos</h3>
-                <div className="space-y-2 mb-3">
+              <div className="mb-6 p-4 bg-slate-50 rounded-xl border border-slate-200 animate-in fade-in slide-in-from-top-2 duration-300">
+                <h3 className="text-[10px] font-bold text-slate-500 uppercase mb-3">Campos Personalizados</h3>
+                <div className="space-y-2 mb-4">
                   {fields.map(f => (
-                    <div key={f.id} className="flex items-center justify-between text-xs p-2 bg-white rounded border border-slate-100">
-                      <span className="text-slate-700">{f.label}</span>
+                    <div key={f.id} className="flex items-center justify-between text-xs p-2.5 bg-white rounded-lg border border-slate-100 shadow-sm">
+                      <span className="font-medium text-slate-700">{f.label}</span>
                       {!DEFAULT_FIELDS.some(df => df.id === f.id) && (
-                        <button onClick={() => handleRemoveField(f.id)} className="text-red-400 hover:text-red-600">
+                        <button onClick={() => handleRemoveField(f.id)} className="text-red-400 hover:text-red-600 transition">
                           <TrashIcon />
                         </button>
                       )}
@@ -144,15 +141,12 @@ export default function App() {
                 </div>
                 <div className="flex gap-2">
                   <input 
-                    className="flex-1 px-2 py-1 text-xs border border-slate-200 rounded outline-none focus:ring-1 focus:ring-indigo-500"
-                    placeholder="Nuevo campo..."
+                    className="flex-1 px-3 py-1.5 text-xs border border-slate-200 rounded-lg outline-none focus:ring-2 focus:ring-indigo-500 bg-white"
+                    placeholder="Nuevo campo (ej: Objetivo)"
                     value={newFieldLabel}
                     onChange={e => setNewFieldLabel(e.target.value)}
                   />
-                  <button 
-                    onClick={handleAddField}
-                    className="p-1 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-                  >
+                  <button onClick={handleAddField} className="p-1.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-sm">
                     <PlusIcon />
                   </button>
                 </div>
@@ -161,22 +155,20 @@ export default function App() {
 
             <form onSubmit={handleGenerate} className="space-y-4">
               {fields.map(field => (
-                <div key={field.id}>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">{field.label}</label>
+                <div key={field.id} className="space-y-1.5">
+                  <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide">{field.label}</label>
                   {field.type === 'select' ? (
                     <select
-                      className="w-full px-3 py-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition bg-white"
+                      className="w-full px-3 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition bg-white shadow-sm"
                       value={form[field.id] || ''}
                       onChange={e => setForm({...form, [field.id]: e.target.value})}
                     >
-                      {field.options?.map(opt => (
-                        <option key={opt} value={opt}>{opt}</option>
-                      ))}
+                      {field.options?.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                     </select>
                   ) : (
                     <input
                       required={DEFAULT_FIELDS.some(df => df.id === field.id)}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-md focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition"
+                      className="w-full px-3 py-2.5 border border-slate-200 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition bg-white shadow-sm"
                       placeholder={field.placeholder}
                       value={form[field.id] || ''}
                       onChange={e => setForm({...form, [field.id]: e.target.value})}
@@ -185,13 +177,19 @@ export default function App() {
                 </div>
               ))}
 
+              {error && (
+                <div className="p-3 bg-red-50 border border-red-100 text-red-600 text-xs rounded-lg animate-pulse">
+                  {error}
+                </div>
+              )}
+
               <button
                 disabled={loading}
                 type="submit"
-                className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white font-medium rounded-md transition shadow-sm flex items-center justify-center gap-2"
+                className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300 text-white font-bold rounded-lg transition shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 mt-4"
               >
                 {loading ? (
-                  <span className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+                  <span className="animate-spin rounded-full h-5 w-5 border-3 border-white border-t-transparent" />
                 ) : (
                   <><PlusIcon /> Generar Plan</>
                 )}
@@ -199,18 +197,21 @@ export default function App() {
             </form>
           </section>
 
-          <section>
-            <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Historial</h2>
-            <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-              {plans.length === 0 && <p className="text-sm text-slate-400 italic text-center py-4">No hay planes guardados.</p>}
+          <section className="pt-6 border-t border-slate-100">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Lecciones Guardadas</h2>
+            <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+              {plans.length === 0 && <p className="text-xs text-slate-400 italic text-center py-4">No hay historial todavía.</p>}
               {plans.map(p => (
                 <button
                   key={p.id}
-                  onClick={() => setCurrentPlan(p)}
-                  className={`w-full text-left p-3 rounded-md border text-sm transition ${currentPlan?.id === p.id ? 'border-indigo-500 bg-indigo-50 text-indigo-700' : 'border-slate-100 hover:bg-slate-50 text-slate-600'}`}
+                  onClick={() => { setCurrentPlan(p); setError(null); }}
+                  className={`w-full text-left p-3 rounded-xl border transition-all ${currentPlan?.id === p.id ? 'border-indigo-500 bg-indigo-50 text-indigo-700 ring-2 ring-indigo-100' : 'border-slate-100 hover:bg-slate-50 text-slate-600'}`}
                 >
-                  <div className="font-semibold truncate">{p.topic}</div>
-                  <div className="text-xs opacity-70">{p.date} • {p.audience}</div>
+                  <div className="font-bold truncate text-sm">{p.topic}</div>
+                  <div className="text-[10px] opacity-70 mt-1 flex justify-between items-center font-medium">
+                    <span>{p.date}</span>
+                    <span className="bg-white/50 px-1.5 rounded uppercase">{p.audience.split(' ')[0]}</span>
+                  </div>
                 </button>
               ))}
             </div>
@@ -218,115 +219,120 @@ export default function App() {
         </nav>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 bg-white md:bg-slate-50 p-4 md:p-10 overflow-y-auto">
+      {/* Contenido Principal */}
+      <main className="flex-1 p-4 md:p-10 overflow-y-auto bg-slate-50">
         {!currentPlan ? (
-          <div className="h-full flex flex-col items-center justify-center text-slate-400 max-w-lg mx-auto text-center space-y-4">
-            <div className="p-6 bg-white rounded-full shadow-sm">
+          <div className="h-full flex flex-col items-center justify-center text-slate-400 max-w-lg mx-auto text-center space-y-6">
+            <div className="p-8 bg-white rounded-3xl shadow-xl shadow-slate-200/50 animate-bounce duration-[3000ms]">
               <BookIcon />
             </div>
-            <h2 className="text-2xl font-light text-slate-600">Bienvenido, Maestro</h2>
-            <p>Comienza completando el formulario a la izquierda para generar tu primer plan de clase asistido por IA para <strong>CIELOS ABIERTO - AGUADULCE</strong>.</p>
+            <div className="space-y-2">
+              <h2 className="text-3xl font-black text-slate-800 tracking-tight">Bienvenido, Maestro</h2>
+              <p className="text-slate-500 font-medium">Crea planes de clase estructurados y bíblicos para CIELOS ABIERTOS AGUADULCE con ayuda de Inteligencia Artificial.</p>
+            </div>
           </div>
         ) : (
-          <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* Action Bar */}
-            <div className="no-print flex items-center justify-between mb-4">
-              <button 
-                onClick={() => setCurrentPlan(null)}
-                className="text-indigo-600 text-sm font-medium flex items-center gap-1 hover:underline"
-              >
-                ← Volver al inicio
+          <div className="max-w-4xl mx-auto space-y-8 pb-10">
+            <div className="no-print flex items-center justify-between">
+              <button onClick={() => setCurrentPlan(null)} className="text-indigo-600 text-sm font-bold flex items-center gap-1.5 hover:translate-x-[-4px] transition-transform">
+                ← Volver al Menú
               </button>
-              <button
-                onClick={handlePrint}
-                className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-md shadow-sm text-sm font-medium text-slate-700 hover:bg-slate-50 transition"
-              >
-                <PrintIcon /> Imprimir / PDF
+              <button onClick={handlePrint} className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-xl shadow-md text-sm font-bold text-slate-700 hover:bg-slate-50 transition-all hover:shadow-lg">
+                <PrintIcon /> Guardar PDF / Imprimir
               </button>
             </div>
 
-            {/* Plan Display Card */}
-            <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-8 md:p-12 print:shadow-none print:border-none print:p-0">
-              <header className="border-b border-slate-100 pb-8 mb-8">
-                <div className="flex justify-between items-start mb-4">
-                  <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">{currentPlan.topic}</h1>
-                  <span className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wide">
+            <div className="bg-white border border-slate-200 rounded-3xl shadow-2xl shadow-slate-200/50 p-8 md:p-16 print:shadow-none print:border-none print:p-0">
+              <header className="border-b-2 border-slate-100 pb-10 mb-10">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-black text-indigo-600 uppercase tracking-[0.3em] block">Escuela Dominical</span>
+                    <h1 className="text-4xl font-black text-slate-900 leading-tight">{currentPlan.topic}</h1>
+                  </div>
+                  <div className="bg-indigo-600 text-white px-5 py-2 rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg shadow-indigo-100">
                     {currentPlan.audience}
-                  </span>
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-6 text-sm text-slate-500">
-                  <p><strong>Cita:</strong> {currentPlan.verse}</p>
-                  <p><strong>Fecha:</strong> {currentPlan.date}</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                  <div>
+                    <span className="block text-slate-300 mb-1">Cita Bíblica</span>
+                    <span className="text-slate-800">{currentPlan.verse}</span>
+                  </div>
+                  <div>
+                    <span className="block text-slate-300 mb-1">Fecha</span>
+                    <span className="text-slate-800">{currentPlan.date}</span>
+                  </div>
                 </div>
               </header>
 
-              <div className="grid gap-12">
-                {/* ABCD Section */}
+              <div className="space-y-12">
+                {/* Metodología ABCD */}
                 <section>
-                  <h3 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2 border-l-4 border-indigo-600 pl-3">
-                    Metodología ABCD
+                  <h3 className="text-sm font-black text-slate-900 mb-6 uppercase tracking-widest flex items-center gap-3">
+                    <span className="w-2 h-6 bg-indigo-600 rounded-full"></span>
+                    Estructura de la Clase (ABCD)
                   </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <span className="text-xs font-bold text-indigo-600 uppercase mb-1 block">A - Audiencia</span>
-                      <p className="text-slate-700 text-sm">{currentPlan.abcd.audience}</p>
-                    </div>
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <span className="text-xs font-bold text-indigo-600 uppercase mb-1 block">B - Comportamiento</span>
-                      <p className="text-slate-700 text-sm">{currentPlan.abcd.behavior}</p>
-                    </div>
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <span className="text-xs font-bold text-indigo-600 uppercase mb-1 block">C - Condición</span>
-                      <p className="text-slate-700 text-sm">{currentPlan.abcd.condition}</p>
-                    </div>
-                    <div className="p-4 bg-slate-50 rounded-lg">
-                      <span className="text-xs font-bold text-indigo-600 uppercase mb-1 block">D - Grado</span>
-                      <p className="text-slate-700 text-sm">{currentPlan.abcd.degree}</p>
-                    </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {Object.entries(currentPlan.abcd).map(([key, value]) => (
+                      <div key={key} className="p-5 bg-slate-50 border border-slate-100 rounded-2xl group hover:bg-white hover:shadow-xl transition-all duration-300">
+                        <span className="text-[10px] font-black text-indigo-500 uppercase block mb-2">{key === 'audience' ? 'A - Audiencia' : key === 'behavior' ? 'B - Comportamiento' : key === 'condition' ? 'C - Condición' : 'D - Grado'}</span>
+                        <p className="text-slate-700 text-sm font-medium leading-relaxed">{value}</p>
+                      </div>
+                    ))}
                   </div>
                 </section>
 
-                {/* Objectives */}
-                <section>
-                  <h3 className="text-lg font-bold text-slate-800 mb-4 border-l-4 border-indigo-600 pl-3">Objetivos de la Clase</h3>
-                  <div className="space-y-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                  <section className="space-y-8">
                     <div>
-                      <h4 className="text-sm font-semibold text-slate-600 mb-2 uppercase tracking-wide">General</h4>
-                      <p className="text-slate-700 leading-relaxed italic border-l-2 border-slate-200 pl-4">{currentPlan.generalObjective}</p>
+                      <h3 className="text-sm font-black text-slate-900 mb-6 uppercase tracking-widest flex items-center gap-3">
+                        <span className="w-2 h-6 bg-indigo-600 rounded-full"></span>
+                        Objetivos
+                      </h3>
+                      <div className="space-y-6">
+                        <div className="p-6 bg-indigo-50 rounded-2xl border border-indigo-100">
+                          <span className="text-[10px] font-black text-indigo-600 uppercase mb-2 block">General</span>
+                          <p className="text-slate-800 text-sm font-bold italic leading-relaxed">{currentPlan.generalObjective}</p>
+                        </div>
+                        <ul className="space-y-3">
+                          {currentPlan.specificObjectives.map((obj, i) => (
+                            <li key={i} className="flex gap-3 text-sm text-slate-600 font-medium">
+                              <span className="text-indigo-400 font-black">•</span> {obj}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-slate-600 mb-2 uppercase tracking-wide">Específicos</h4>
-                      <ul className="list-disc list-inside text-slate-700 space-y-1 ml-2">
-                        {currentPlan.specificObjectives.map((obj, i) => (
-                          <li key={i}>{obj}</li>
-                        ))}
-                      </ul>
+                  </section>
+
+                  <section className="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl">
+                    <h3 className="text-xs font-black text-indigo-400 mb-6 uppercase tracking-widest">Resumen Teológico</h3>
+                    <p className="text-slate-300 text-sm leading-relaxed font-medium italic">"{currentPlan.biblicalContext}"</p>
+                    <div className="mt-8 pt-8 border-t border-slate-800 flex justify-between items-center text-[10px] font-black uppercase text-slate-500">
+                      <span>Cielos Abiertos</span>
+                      <span>Aguadulce 2024</span>
                     </div>
-                  </div>
-                </section>
+                  </section>
+                </div>
 
-                {/* Biblical Context */}
-                <section className="p-6 bg-indigo-50/50 rounded-xl border border-indigo-100">
-                  <h3 className="text-lg font-bold text-slate-800 mb-3">Resumen Bíblico para el Maestro</h3>
-                  <p className="text-slate-700 text-sm leading-relaxed">{currentPlan.biblicalContext}</p>
-                </section>
-
-                {/* Activities */}
+                {/* Actividades */}
                 <section>
-                  <h3 className="text-lg font-bold text-slate-800 mb-4 border-l-4 border-indigo-600 pl-3">Secuencia Didáctica</h3>
+                  <h3 className="text-sm font-black text-slate-900 mb-8 uppercase tracking-widest flex items-center gap-3">
+                    <span className="w-2 h-6 bg-indigo-600 rounded-full"></span>
+                    Ruta de Aprendizaje
+                  </h3>
                   <div className="space-y-6">
                     {currentPlan.activities.map((act, i) => (
-                      <div key={i} className="relative pl-8 pb-6 border-l border-slate-200 last:pb-0">
-                        <div className="absolute left-[-5px] top-0 w-[10px] h-[10px] bg-indigo-600 rounded-full" />
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-bold text-slate-800">{act.title}</h4>
-                          <span className="text-xs font-medium text-slate-400">{act.duration}</span>
+                      <div key={i} className="group relative pl-10 pb-10 border-l-2 border-slate-100 last:pb-0">
+                        <div className="absolute left-[-9px] top-0 w-4 h-4 bg-white border-4 border-indigo-600 rounded-full transition-transform group-hover:scale-125" />
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
+                          <h4 className="font-black text-slate-800 text-lg">{act.title}</h4>
+                          <span className="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-[10px] font-black uppercase">{act.duration}</span>
                         </div>
-                        <p className="text-sm text-slate-600 mb-3">{act.description}</p>
+                        <p className="text-slate-600 text-sm leading-relaxed mb-4 font-medium">{act.description}</p>
                         <div className="flex flex-wrap gap-2">
                           {act.materials.map((m, j) => (
-                            <span key={j} className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-[10px] font-medium uppercase">{m}</span>
+                            <span key={j} className="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-[10px] font-bold uppercase tracking-wide">#{m}</span>
                           ))}
                         </div>
                       </div>
@@ -334,26 +340,27 @@ export default function App() {
                   </div>
                 </section>
 
-                {/* Rubric */}
-                <section className="print:break-before-page">
-                  <h3 className="text-lg font-bold text-slate-800 mb-4 border-l-4 border-indigo-600 pl-3">Rúbrica de Evaluación</h3>
-                  <div className="overflow-x-auto rounded-lg border border-slate-200">
-                    <table className="w-full text-sm text-left">
-                      <thead className="bg-slate-50 text-slate-600 border-b border-slate-200">
+                {/* Rúbrica */}
+                <section className="print:break-before-page pt-10">
+                  <h3 className="text-sm font-black text-slate-900 mb-8 uppercase tracking-widest flex items-center gap-3">
+                    <span className="w-2 h-6 bg-indigo-600 rounded-full"></span>
+                    Criterios de Éxito
+                  </h3>
+                  <div className="overflow-hidden rounded-3xl border-2 border-slate-100 shadow-xl">
+                    <table className="w-full text-xs text-left">
+                      <thead className="bg-slate-50 text-slate-400 font-black uppercase tracking-widest border-b border-slate-100">
                         <tr>
-                          <th className="px-4 py-3 font-semibold">Criterio</th>
-                          <th className="px-4 py-3 font-semibold text-green-700">Excelente</th>
-                          <th className="px-4 py-3 font-semibold text-amber-700">Bueno</th>
-                          <th className="px-4 py-3 font-semibold text-red-700">Por mejorar</th>
+                          <th className="px-6 py-5">Dimensión</th>
+                          <th className="px-6 py-5 text-emerald-600">Sobresaliente</th>
+                          <th className="px-6 py-5 text-amber-600">En Proceso</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-100">
+                      <tbody className="divide-y divide-slate-50">
                         {currentPlan.rubric.map((item, i) => (
-                          <tr key={i} className="hover:bg-slate-50/50">
-                            <td className="px-4 py-3 font-medium text-slate-800">{item.criterion}</td>
-                            <td className="px-4 py-3 text-slate-600 italic">{item.excellent}</td>
-                            <td className="px-4 py-3 text-slate-600 italic">{item.good}</td>
-                            <td className="px-4 py-3 text-slate-600 italic">{item.improvement}</td>
+                          <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                            <td className="px-6 py-5 font-black text-slate-800 bg-slate-50/30">{item.criterion}</td>
+                            <td className="px-6 py-5 text-slate-600 font-medium leading-relaxed">{item.excellent}</td>
+                            <td className="px-6 py-5 text-slate-400 italic leading-relaxed">{item.improvement}</td>
                           </tr>
                         ))}
                       </tbody>
@@ -362,8 +369,9 @@ export default function App() {
                 </section>
               </div>
 
-              <footer className="mt-16 pt-8 border-t border-slate-100 text-center text-slate-400 text-[10px] uppercase tracking-widest">
-                CIELOS ABIERTO - AGUADULCE • "Edificando sobre la roca" • © {new Date().getFullYear()}
+              <footer className="mt-20 pt-10 border-t-2 border-slate-100 text-center">
+                <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.5em]">CIELOS ABIERTOS - AGUADULCE, PANAMÁ</p>
+                <p className="text-[9px] font-medium text-slate-400 mt-2 tracking-widest">EDIFICANDO SOBRE LA ROCA • {new Date().getFullYear()}</p>
               </footer>
             </div>
           </div>

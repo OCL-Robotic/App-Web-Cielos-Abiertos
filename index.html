@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CIELOS ABIERTOS - AGUADULCE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; -webkit-print-color-adjust: exact; }
         @media print {
             .no-print { display: none !important; }
-            .print-only { display: block !important; }
+            body { background: white !important; }
+            .print-shadow-none { box-shadow: none !important; }
         }
+        /* Prevenir flashes blancos durante carga */
+        #root:empty { background: #f8fafc; min-height: 100vh; }
     </style>
 <script type="importmap">
 {
@@ -25,7 +28,7 @@
 }
 </script>
 </head>
-<body class="bg-slate-50 text-slate-900">
+<body class="bg-slate-50 text-slate-900 antialiased">
     <div id="root"></div>
 </body>
 </html>
