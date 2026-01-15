@@ -11,7 +11,7 @@ export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan
     throw new Error("API_KEY no encontrada. Asegúrate de configurarla en las variables de entorno (Dashboard de Vercel).");
   }
 
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey:import.meta.env.VITE_API_KEY });
 
   // Construir dinámicamente el contexto basado en los campos personalizados
   const inputContext = Object.entries(inputs)
