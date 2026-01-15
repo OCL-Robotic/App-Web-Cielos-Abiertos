@@ -2,22 +2,12 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { LessonPlan, FormInputs } from "../types";
 
-// Función segura para obtener la API Key sin romper el script si 'process' no existe
-const getApiKey = (): string => {
-  try {
-    return typeof process !== 'undefined' && process.env && process.env.API_KEY 
-      ? process.env.API_KEY 
-      : '';
-  } catch (e) {
-    return '';
-  }
-};
-
 export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan> => {
-  const apiKey = getApiKey();
+  // Según las guías, usamos process.env.API_KEY directamente
+  const apiKey = process.env.API_KEY;
   
   if (!apiKey) {
-    throw new Error("La API Key no está configurada en el servidor/entorno.");
+    throw new Error("API_KEY no encontrada. Asegúrate de configurarla en las variables de entorno de Vercel.");
   }
 
   const ai = new GoogleGenAI({ apiKey });
