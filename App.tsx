@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { LessonPlan, FormInputs, FieldConfig } from './types';
-import { generateLessonPlan } from './services/geminiService';
+import { LessonPlan, FormInputs, FieldConfig } from './types.ts';
+import { generateLessonPlan } from './services/geminiService.ts';
 
 // Iconos
 const BookIcon = () => (
@@ -17,7 +17,7 @@ const SettingsIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2 2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
 );
 const TrashIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
 );
 
 const DEFAULT_FIELDS: FieldConfig[] = [
@@ -105,7 +105,7 @@ export default function App() {
               <BookIcon />
             </div>
             <div className="flex flex-col">
-              <h1 className="text-lg font-bold text-slate-800 leading-none tracking-tight">CIELOS ABIERTOS</h1>
+              <h1 className="text-lg font-bold text-slate-800 leading-none tracking-tight uppercase">CIELOS ABIERTOS</h1>
               <span className="text-[10px] font-bold text-indigo-600 tracking-widest uppercase mt-0.5">Aguadulce, Coclé</span>
             </div>
           </div>
@@ -223,7 +223,7 @@ export default function App() {
       <main className="flex-1 p-4 md:p-10 overflow-y-auto bg-slate-50">
         {!currentPlan ? (
           <div className="h-full flex flex-col items-center justify-center text-slate-400 max-w-lg mx-auto text-center space-y-6">
-            <div className="p-8 bg-white rounded-3xl shadow-xl shadow-slate-200/50 animate-bounce duration-[3000ms]">
+            <div className="p-8 bg-white rounded-3xl shadow-xl shadow-slate-200/50">
               <BookIcon />
             </div>
             <div className="space-y-2">
@@ -273,12 +273,22 @@ export default function App() {
                     Estructura de la Clase (ABCD)
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {Object.entries(currentPlan.abcd).map(([key, value]) => (
-                      <div key={key} className="p-5 bg-slate-50 border border-slate-100 rounded-2xl group hover:bg-white hover:shadow-xl transition-all duration-300">
-                        <span className="text-[10px] font-black text-indigo-500 uppercase block mb-2">{key === 'audience' ? 'A - Audiencia' : key === 'behavior' ? 'B - Comportamiento' : key === 'condition' ? 'C - Condición' : 'D - Grado'}</span>
-                        <p className="text-slate-700 text-sm font-medium leading-relaxed">{value}</p>
-                      </div>
-                    ))}
+                    <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                      <span className="text-[10px] font-black text-indigo-500 uppercase block mb-2">A - Audiencia</span>
+                      <p className="text-slate-700 text-sm font-medium leading-relaxed">{currentPlan.abcd.audience}</p>
+                    </div>
+                    <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                      <span className="text-[10px] font-black text-indigo-500 uppercase block mb-2">B - Comportamiento</span>
+                      <p className="text-slate-700 text-sm font-medium leading-relaxed">{currentPlan.abcd.behavior}</p>
+                    </div>
+                    <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                      <span className="text-[10px] font-black text-indigo-500 uppercase block mb-2">C - Condición</span>
+                      <p className="text-slate-700 text-sm font-medium leading-relaxed">{currentPlan.abcd.condition}</p>
+                    </div>
+                    <div className="p-5 bg-slate-50 border border-slate-100 rounded-2xl">
+                      <span className="text-[10px] font-black text-indigo-500 uppercase block mb-2">D - Grado</span>
+                      <p className="text-slate-700 text-sm font-medium leading-relaxed">{currentPlan.abcd.degree}</p>
+                    </div>
                   </div>
                 </section>
 
@@ -306,12 +316,8 @@ export default function App() {
                   </section>
 
                   <section className="bg-slate-900 rounded-3xl p-8 text-white shadow-2xl">
-                    <h3 className="text-xs font-black text-indigo-400 mb-6 uppercase tracking-widest">Resumen Teológico</h3>
+                    <h3 className="text-xs font-black text-indigo-400 mb-6 uppercase tracking-widest">Contexto Bíblico</h3>
                     <p className="text-slate-300 text-sm leading-relaxed font-medium italic">"{currentPlan.biblicalContext}"</p>
-                    <div className="mt-8 pt-8 border-t border-slate-800 flex justify-between items-center text-[10px] font-black uppercase text-slate-500">
-                      <span>Cielos Abiertos</span>
-                      <span>Aguadulce 2024</span>
-                    </div>
                   </section>
                 </div>
 
@@ -319,12 +325,12 @@ export default function App() {
                 <section>
                   <h3 className="text-sm font-black text-slate-900 mb-8 uppercase tracking-widest flex items-center gap-3">
                     <span className="w-2 h-6 bg-indigo-600 rounded-full"></span>
-                    Ruta de Aprendizaje
+                    Actividades Sugeridas
                   </h3>
                   <div className="space-y-6">
                     {currentPlan.activities.map((act, i) => (
-                      <div key={i} className="group relative pl-10 pb-10 border-l-2 border-slate-100 last:pb-0">
-                        <div className="absolute left-[-9px] top-0 w-4 h-4 bg-white border-4 border-indigo-600 rounded-full transition-transform group-hover:scale-125" />
+                      <div key={i} className="relative pl-10 pb-10 border-l-2 border-slate-100 last:pb-0">
+                        <div className="absolute left-[-9px] top-0 w-4 h-4 bg-white border-4 border-indigo-600 rounded-full" />
                         <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-3">
                           <h4 className="font-black text-slate-800 text-lg">{act.title}</h4>
                           <span className="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-[10px] font-black uppercase">{act.duration}</span>
@@ -344,23 +350,25 @@ export default function App() {
                 <section className="print:break-before-page pt-10">
                   <h3 className="text-sm font-black text-slate-900 mb-8 uppercase tracking-widest flex items-center gap-3">
                     <span className="w-2 h-6 bg-indigo-600 rounded-full"></span>
-                    Criterios de Éxito
+                    Rúbrica de Evaluación
                   </h3>
                   <div className="overflow-hidden rounded-3xl border-2 border-slate-100 shadow-xl">
                     <table className="w-full text-xs text-left">
                       <thead className="bg-slate-50 text-slate-400 font-black uppercase tracking-widest border-b border-slate-100">
                         <tr>
                           <th className="px-6 py-5">Dimensión</th>
-                          <th className="px-6 py-5 text-emerald-600">Sobresaliente</th>
-                          <th className="px-6 py-5 text-amber-600">En Proceso</th>
+                          <th className="px-6 py-5 text-emerald-600">Excelente</th>
+                          <th className="px-6 py-5 text-amber-600">Bueno</th>
+                          <th className="px-6 py-5 text-red-600">Por Mejorar</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
                         {currentPlan.rubric.map((item, i) => (
-                          <tr key={i} className="hover:bg-slate-50/50 transition-colors">
+                          <tr key={i}>
                             <td className="px-6 py-5 font-black text-slate-800 bg-slate-50/30">{item.criterion}</td>
-                            <td className="px-6 py-5 text-slate-600 font-medium leading-relaxed">{item.excellent}</td>
-                            <td className="px-6 py-5 text-slate-400 italic leading-relaxed">{item.improvement}</td>
+                            <td className="px-6 py-5 text-slate-600 font-medium">{item.excellent}</td>
+                            <td className="px-6 py-5 text-slate-600 font-medium">{item.good}</td>
+                            <td className="px-6 py-5 text-slate-400 italic font-medium">{item.improvement}</td>
                           </tr>
                         ))}
                       </tbody>

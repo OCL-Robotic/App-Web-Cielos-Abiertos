@@ -1,13 +1,14 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { LessonPlan, FormInputs } from "../types";
+import { LessonPlan, FormInputs } from "../types.ts";
 
 export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan> => {
-  // Según las guías, usamos process.env.API_KEY directamente
-  const apiKey = process.env.API_KEY;
+  // Acceso más seguro a process.env para evitar ReferenceError si no existe
+  const env = (typeof process !== 'undefined' ? process.env : (globalThis as any).process?.env) || {};
+  const apiKey = env.API_KEY;
   
   if (!apiKey) {
-    throw new Error("API_KEY no encontrada. Asegúrate de configurarla en las variables de entorno de Vercel.");
+    throw new Error("API_KEY no encontrada. Asegúrate de configurarla en las variables de entorno (Dashboard de Vercel).");
   }
 
   const ai = new GoogleGenAI({ apiKey });
