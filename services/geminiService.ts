@@ -5,10 +5,10 @@ import { LessonPlan, FormInputs } from "../types.ts";
 export const generateLessonPlan = async (inputs: FormInputs): Promise<LessonPlan> => {
   // Acceso más seguro a process.env para evitar ReferenceError si no existe
   const env = (typeof process !== 'undefined' ? process.env : (globalThis as any).process?.env) || {};
-  const apiKey = env.API_KEY;
+  const apiKey = import.meta.env.VITE_API_KEY;
   
   if (!apiKey) {
-    throw new Error("API_KEY no encontrada. Asegúrate de configurarla en las variables de entorno (Dashboard de Vercel).");
+    throw new Error("VITE_API_KEY no encontrada. Asegúrate de configurarla en las variables de entorno (Dashboard de Vercel).");
   }
 
   const ai = new GoogleGenAI({ apiKey });
